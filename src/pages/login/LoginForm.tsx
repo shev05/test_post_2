@@ -6,6 +6,9 @@ import { getInitialLoginUser, loginUserDto } from '../../features/user/helpers/u
 import { useLoginMutation } from '../../services/api/auth/authEnpoints'
 import { hashPassword } from './Hash/hashPassword'
 import { useNavigate } from 'react-router-dom'
+import { PATHS } from '../../shared/constants/route/routes'
+import toast from 'react-hot-toast'
+import { TOAST_TEXT } from '../../shared/constants/text/ToastText'
 
 export default function LoginForm() {
   const {
@@ -25,8 +28,10 @@ export default function LoginForm() {
       const hashedPassword = await hashPassword(values.password)
       const loginUser = loginUserDto(values, hashedPassword)
       await login(loginUser).unwrap()
-      navigate('/')
+      navigate(PATHS.HOME)
+      toast.success(TOAST_TEXT.LOGIN)
     } catch (error) {
+      toast.error(TOAST_TEXT.LOGIN_ERROR)
       console.error(error)
     }
   }

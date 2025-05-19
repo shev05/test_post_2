@@ -5,6 +5,8 @@ import { registerFormSchema, type RegisterFormValues } from '../../shared/consta
 import { getInitialRegisterUser, registerUserDto } from '../../features/user/helpers/userHelpers'
 import { useRegisterMutation } from '../../services/api/auth/authEnpoints'
 import { hashPassword } from './Hash/hashPassword'
+import toast from 'react-hot-toast'
+import { TOAST_TEXT } from '../../shared/constants/text/ToastText'
 
 export default function RegisterForm() {
   const {
@@ -23,8 +25,10 @@ export default function RegisterForm() {
       const hashedPassword = await hashPassword(values.password)
       const regUser = registerUserDto(values, hashedPassword)
       await registerUser(regUser).unwrap()
+      toast.success(TOAST_TEXT.REGISTER)
     } catch (error) {
       console.error(error)
+      toast.error(TOAST_TEXT.REGISTER_ERROR)
     }
   }
   return (

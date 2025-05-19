@@ -2,6 +2,7 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { URL_ADRESS } from '../../shared/constants/url/api'
 import type { Tokens } from '../../shared/constants/types/tokens'
+import { PATHS } from '../../shared/constants/route/routes'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/',
@@ -12,30 +13,23 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
   let result = await baseQuery(args, api, extraOptions)
 
   if (result.error?.status === 401) {
-    const refreshToken = localStorage.getItem('refresh_token')
+    const refreshResult = await baseQuery(
+      {
+        url: URL_ADRESS.REFRESH_URL,
+        method: 'POST',
+      },
+      api,
+      extraOptions,
+    )
 
-    if (refreshToken) {
-      const refreshResult = await baseQuery(
-        {
-          url: URL_ADRESS.REFRESH_URL,
-          method: 'POST',
-          body: { refresh_token: refreshToken },
-        },
-        api,
-        extraOptions,
-      )
+    if (refreshResult.data) {
+      const { accessToken } = refreshResult.data as Tokens
 
-      if (refreshResult.data) {
-        const { accessToken } = refreshResult.data as Tokens
+      api.dispatch({ type: 'auth/setCredentials', payload: { token: accessToken } })
 
-        api.dispatch({ type: 'auth/setCredentials', payload: { token: accessToken } })
-
-        result = await baseQuery(args, api, extraOptions)
-      } else {
-        window.location.href = '/login'
-      }
+      result = await baseQuery(args, api, extraOptions)
     } else {
-      window.location.href = '/login'
+      window.location.href = PATHS.LOGIN
     }
   }
 
