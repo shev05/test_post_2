@@ -2,6 +2,20 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
+  server: {
+    proxy: {
+      '/users': {
+        target: 'https://testtask.public.indev.by',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/auth': {
+        target: 'https://testtask.public.indev.by',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   plugins: [react()],
   css: {
     postcss: './postcss.config.js',

@@ -11,6 +11,5 @@ export const registerFormSchema = z.object({
   fullName: z.string().min(1, FORM_TEXTS.FIO_ERROR),
   email: z.string().email(FORM_TEXTS.LOGIN_ERROR),
   password: z.string().min(1, FORM_TEXTS.PASSWORD_ERROR),
-  age: z.coerce.number().min(18, FORM_TEXTS.AGE_ERROR).max(120, FORM_TEXTS.AGE_UP_ERROR),
 })
 export type RegisterFormValues = z.infer<typeof registerFormSchema>

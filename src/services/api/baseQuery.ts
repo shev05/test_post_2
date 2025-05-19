@@ -26,15 +26,16 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
       )
 
       if (refreshResult.data) {
-        const { access_token, refresh_token } = refreshResult.data as Tokens
+        const { accessToken } = refreshResult.data as Tokens
 
-        api.dispatch({ type: 'auth/setCredentials', payload: { token: access_token } })
-        localStorage.setItem('refresh_token', refresh_token)
+        api.dispatch({ type: 'auth/setCredentials', payload: { token: accessToken } })
 
         result = await baseQuery(args, api, extraOptions)
       } else {
-        localStorage.removeItem('refresh_token')
+        window.location.href = '/login'
       }
+    } else {
+      window.location.href = '/login'
     }
   }
 

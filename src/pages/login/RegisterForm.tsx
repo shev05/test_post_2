@@ -2,7 +2,9 @@ import { TextFormField } from '../../components/ui/textFromField'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registerFormSchema, type RegisterFormValues } from '../../shared/constants/scheme'
-import { getInitialRegisterUser } from '../../features/user/helpers/userHelpers'
+import { getInitialRegisterUser, registerUserDto } from '../../features/user/helpers/userHelpers'
+import { useRegisterMutation } from '../../services/api/auth/authEnpoints'
+import { hashPassword } from './Hash/hashPassword'
 
 export default function RegisterForm() {
   const {
@@ -14,8 +16,16 @@ export default function RegisterForm() {
     defaultValues: getInitialRegisterUser(),
   })
 
-  async function onSubmit() {
-    console.log('Форма отправлена')
+  const [registerUser, { isLoading }] = useRegisterMutation()
+
+  async function onSubmit(values: RegisterFormValues) {
+    try {
+      const hashedPassword = await hashPassword(values.password)
+      const regUser = registerUserDto(values, hashedPassword)
+      await registerUser(regUser).unwrap()
+    } catch (error) {
+      console.error(error)
+    }
   }
   return (
     <form
@@ -50,20 +60,13 @@ export default function RegisterForm() {
           type="password"
           error={errors.password?.message}
         />
-        <TextFormField
-          label="Возраст"
-          placeholder="Введите возраст"
-          register={register('age')}
-          type="number"
-          error={errors.age?.message}
-        />
       </div>
 
       <button
         type="submit"
         className="focus:outline-none w-full rounded-md bg-black px-4 py-2 font-medium text-white hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2"
       >
-        Войти
+        {isLoading ? 'Регистриуем...' : 'Регистрация'}
       </button>
     </form>
   )

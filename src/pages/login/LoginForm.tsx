@@ -2,7 +2,10 @@ import { TextFormField } from '../../components/ui/textFromField'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginFormSchema, type LoginFormValues } from '../../shared/constants/scheme'
-import { getInitialLoginUser } from '../../features/user/helpers/userHelpers'
+import { getInitialLoginUser, loginUserDto } from '../../features/user/helpers/userHelpers'
+import { useLoginMutation } from '../../services/api/auth/authEnpoints'
+import { hashPassword } from './Hash/hashPassword'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginForm() {
   const {
@@ -14,8 +17,18 @@ export default function LoginForm() {
     defaultValues: getInitialLoginUser(),
   })
 
-  async function onSubmit() {
-    console.log('Форма отправлена')
+  const [login, { isLoading }] = useLoginMutation()
+  const navigate = useNavigate()
+
+  async function onSubmit(values: LoginFormValues) {
+    try {
+      const hashedPassword = await hashPassword(values.password)
+      const loginUser = loginUserDto(values, hashedPassword)
+      await login(loginUser).unwrap()
+      navigate('/')
+    } catch (error) {
+      console.error(error)
+    }
   }
   return (
     <form
@@ -49,7 +62,7 @@ export default function LoginForm() {
         type="submit"
         className="focus:outline-none w-full rounded-md bg-black px-4 py-2 font-medium text-white hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2"
       >
-        Войти
+        {isLoading ? 'Вход...' : 'Вход'}
       </button>
     </form>
   )
