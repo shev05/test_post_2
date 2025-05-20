@@ -35,7 +35,14 @@ export const postEndpoints = api.injectEndpoints({
         { type: ApiTags.POST, id: ApiTagIds.LIST },
       ],
     }),
+    deletePost: builder.mutation<{ success: boolean }, number>({
+      query: (id: number) => ({
+        url: `${URL_ADRESS.POSTS_URL}/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (_result: unknown, _error: unknown, id: number) => [{ type: ApiTags.POST as const, id }],
+    }),
   }),
 })
 
-export const { useGetPostQuery, useCreatePostMutation, useUpdatePostMutation } = postEndpoints
+export const { useGetPostQuery, useCreatePostMutation, useUpdatePostMutation, useDeletePostMutation } = postEndpoints

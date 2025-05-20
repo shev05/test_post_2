@@ -2,16 +2,16 @@ import { useState } from 'react'
 import { CreatePostForm } from '../../../components/form/createPostForm'
 import { Button } from '../../../components/ui/Button'
 import { ModalWindow } from '../../../components/ui/modal'
-import { useModal } from '../../../hooks/useModal'
+import { useToggle } from '../../../hooks/useToggle'
 import type { IPostFilter } from '../../../shared/constants/types/post'
-import type { User } from '../../../shared/constants/types/user'
+import { useUserQuery } from '../../../services/api/user/userEndpoints'
 
 interface IProps {
-  users?: User[]
   onFilterChange: (filter: IPostFilter) => void
 }
 
-export const GlobalHeader = ({ users, onFilterChange }: IProps) => {
+export const GlobalHeader = ({ onFilterChange }: IProps) => {
+  const { data: users } = useUserQuery()
   const [currentFilter, setCurrentFilter] = useState<IPostFilter>({})
 
   const handleAuthorChange = (value: string) => {
@@ -32,7 +32,7 @@ export const GlobalHeader = ({ users, onFilterChange }: IProps) => {
     setCurrentFilter(newFilter)
     onFilterChange(newFilter)
   }
-  const { open, isOpen, close } = useModal()
+  const { open, isOpen, close } = useToggle()
   return (
     <>
       <div className="box-border flex w-full items-center justify-between border-b border-gray-300 px-3 py-10">
