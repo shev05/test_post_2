@@ -12,7 +12,7 @@ export function Button({ type = 'button', children, className = '', onClick }: I
     <button
       type={type}
       onClick={onClick}
-      className={`focus:outline-none rounded-md px-4 py-2 font-medium ${className}`}
+      className={`focus:outline-none cursor-pointer rounded-md px-4 py-2 font-medium ${className}`}
     >
       {children}
     </button>

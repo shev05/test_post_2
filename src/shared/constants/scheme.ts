@@ -13,3 +13,10 @@ export const registerFormSchema = z.object({
   password: z.string().min(1, FORM_TEXTS.PASSWORD_ERROR),
 })
 export type RegisterFormValues = z.infer<typeof registerFormSchema>
+
+export const createPostFormSchema = z.object({
+  title: z.string().min(1, FORM_TEXTS.CREATE_POST_TITLE_ERROR),
+  text: z.string().min(1, FORM_TEXTS.CREATE_POST_BODY_ERROR),
+})
+
+export type PostFormValues = z.infer<typeof createPostFormSchema>
