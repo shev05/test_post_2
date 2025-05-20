@@ -5,6 +5,7 @@
     "jsx": "react-jsx",
     "strict": true,
     "skipLibCheck": true,
+    "erasableSyntaxOnly": false,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
