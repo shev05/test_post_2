@@ -6,4 +6,6 @@ export const FORM_TEXTS = {
   FIO_ERROR: 'ФИО обязателен',
   AGE_ERROR: 'Вы должны быть старше 18',
   AGE_UP_ERROR: 'Вы не похожи на Спарду',
+  CREATE_POST_TITLE_ERROR: 'Напишите заголовок',
+  CREATE_POST_BODY_ERROR: 'Напишите хоть что то',
 }

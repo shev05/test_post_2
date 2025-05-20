@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { loginFormSchema, registerFormSchema } from '../../../shared/constants/scheme'
+import type { loginFormSchema, registerFormSchema } from '../../shared/constants/scheme'
 
 export const getInitialLoginUser = () => ({
   email: '',
