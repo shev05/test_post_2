@@ -1,19 +1,20 @@
 import { useState } from 'react'
 import type { UseFormRegisterReturn } from 'react-hook-form'
 import { Eye, EyeOff } from 'lucide-react'
+import { InputType } from '../../shared/constants/enum/input'
 
 interface TextFormFieldProps {
   label: string
   placeholder?: string
   register: UseFormRegisterReturn
-  type?: 'text' | 'email' | 'password' | 'number'
+  type?: InputType.TEXT | InputType.EMAIL | InputType.PASSWORD | InputType.NUMBER
   error?: string
 }
 
-export const TextFormField = ({ label, placeholder = '', register, type = 'text', error }: TextFormFieldProps) => {
+export const TextFormField = ({ label, placeholder = '', register, type = InputType.TEXT, error }: TextFormFieldProps) => {
   const [showPassword, setShowPassword] = useState(false)
 
-  const inputType = type === 'password' ? (showPassword ? 'text' : 'password') : type
+  const inputType = type === InputType.PASSWORD ? (showPassword ? InputType.TEXT : InputType.PASSWORD) : type
 
   return (
     <div className="w-full space-y-2">
@@ -30,12 +31,12 @@ export const TextFormField = ({ label, placeholder = '', register, type = 'text'
           type={inputType}
           placeholder={placeholder}
           className={`focus:outline-none w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-black focus:ring-2 focus:ring-black ${
-            type === 'password' ? 'pr-10' : ''
+            type === InputType.PASSWORD ? 'pr-10' : ''
           }`}
           {...register}
         />
 
-        {type === 'password' && (
+        {type === InputType.PASSWORD && (
           <button
             type="button"
             className="focus:outline-none absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-400 hover:text-gray-600"

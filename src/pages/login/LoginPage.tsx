@@ -2,6 +2,7 @@ import { useState } from 'react'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 import { LoginEnum, type LoginType } from '../../shared/constants/enum/LoginEnum'
+import { Button } from '../../components/ui/Button'
 
 export default function Login() {
   const [activeTab, setActiveTab] = useState<LoginType>(LoginEnum.LOGIN)
@@ -14,27 +15,25 @@ export default function Login() {
           <p className="mt-2 text-lg text-gray-600">Войдите или создайте новый аккаунт</p>
         </div>
         <div className="rounded-lg p-6 shadow-md">
-          <div className="grid grid-cols-2 gap-2 border-b border-gray-200 dark:border-gray-700">
-            <button
+          <div className="grid grid-cols-2 gap-2 border-b border-gray-200">
+            <Button
+              type="button"
               onClick={() => setActiveTab(LoginEnum.LOGIN)}
-              className={`px-4 py-2 text-center font-medium transition-colors ${
-                activeTab === LoginEnum.LOGIN
-                  ? 'border-b-2 border-black text-black dark:border-white dark:text-white'
-                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+              className={`bg-white px-4 py-2 text-center font-medium transition-colors ${
+                activeTab === LoginEnum.LOGIN ? 'border-b-2 border-black text-black ring-2 ring-black' : 'text-gray-600'
               }`}
             >
               Вход
-            </button>
-            <button
+            </Button>
+            <Button
+              type="button"
               onClick={() => setActiveTab(LoginEnum.REGISTER)}
               className={`px-4 py-2 text-center font-medium transition-colors ${
-                activeTab === LoginEnum.REGISTER
-                  ? 'border-b-2 border-black text-black dark:border-white dark:text-white'
-                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                activeTab === LoginEnum.REGISTER ? 'border-b-2 border-black text-black ring-2 ring-black' : 'text-gray-600'
               }`}
             >
               Регистрация
-            </button>
+            </Button>
           </div>
           <div className="mt-4">
             {activeTab === LoginEnum.LOGIN && <LoginForm />}

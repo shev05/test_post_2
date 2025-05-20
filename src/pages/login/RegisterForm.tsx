@@ -7,6 +7,8 @@ import { useRegisterMutation } from '../../services/api/auth/authEnpoints'
 import { hashPassword } from './Hash/hashPassword'
 import toast from 'react-hot-toast'
 import { TOAST_TEXT } from '../../shared/constants/text/ToastText'
+import { InputType } from '../../shared/constants/enum/input'
+import { Button } from '../../components/ui/Button'
 
 export default function RegisterForm() {
   const {
@@ -46,14 +48,14 @@ export default function RegisterForm() {
           label="Имя"
           placeholder="Введите имя"
           register={register('fullName')}
-          type="text"
+          type={InputType.TEXT}
           error={errors.fullName?.message}
         />
         <TextFormField
           label="Почта"
           placeholder="Введите почту"
           register={register('email')}
-          type="email"
+          type={InputType.EMAIL}
           error={errors.email?.message}
         />
 
@@ -61,17 +63,17 @@ export default function RegisterForm() {
           label="Пароль"
           placeholder="Введите пароль"
           register={register('password')}
-          type="password"
+          type={InputType.PASSWORD}
           error={errors.password?.message}
         />
       </div>
 
-      <button
+      <Button
         type="submit"
-        className="focus:outline-none w-full rounded-md bg-black px-4 py-2 font-medium text-white hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2"
+        className="w-full bg-black text-white hover:bg-gray-800"
       >
-        {isLoading ? 'Регистриуем...' : 'Регистрация'}
-      </button>
+        {isLoading ? 'Регистрация...' : 'Регистрация'}
+      </Button>
     </form>
   )
 }
