@@ -5,4 +5,6 @@ export const URL_ADRESS = {
   USERS_URL: '/users',
   POSTS_URL: '/post',
   POSTS_CREATE_URL: '/post/create',
+  COMMENT_URL: '/comments',
+  COMMENT_CREATE_URL: '/comments/create',
 }

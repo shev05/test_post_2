@@ -10,4 +10,5 @@ export const FORM_TEXTS = {
   CREATE_POST_BODY_ERROR: 'Напишите хоть что то',
   POST_DELETE: 'Пост удален',
   POST_DELETE_ERROR: 'Пост не удален',
+  COMMENT_ERROR: 'Комментарий не можеь быть пустым',
 }

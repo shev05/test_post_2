@@ -7,12 +7,13 @@ interface TextFormFieldProps {
   label: string
   placeholder?: string
   register: UseFormRegisterReturn
-  type?: InputType.TEXT | InputType.EMAIL | InputType.PASSWORD | InputType.NUMBER
+  type?: InputType
   error?: string
+  rows?: number
 }
 
-export const TextFormField = ({ label, placeholder = '', register, type = InputType.TEXT, error }: TextFormFieldProps) => {
-  const [showPassword, setShowPassword] = useState(false)
+export const TextFormField = ({ label, placeholder = '', register, type = InputType.TEXT, error, rows = 3 }: TextFormFieldProps) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const inputType = type === InputType.PASSWORD ? (showPassword ? InputType.TEXT : InputType.PASSWORD) : type
 
@@ -26,24 +27,36 @@ export const TextFormField = ({ label, placeholder = '', register, type = InputT
       </label>
 
       <div className="relative">
-        <input
-          id={register.name}
-          type={inputType}
-          placeholder={placeholder}
-          className={`focus:outline-none w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-black focus:ring-2 focus:ring-black ${
-            type === InputType.PASSWORD ? 'pr-10' : ''
-          }`}
-          {...register}
-        />
+        {type === InputType.TEXTAREA ? (
+          <textarea
+            id={register.name}
+            placeholder={placeholder}
+            rows={rows}
+            className={`focus:outline-none w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-black focus:ring-2 focus:ring-black`}
+            {...register}
+          />
+        ) : (
+          <>
+            <input
+              id={register.name}
+              type={inputType}
+              placeholder={placeholder}
+              className={`focus:outline-none w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-black focus:ring-2 focus:ring-black ${
+                type === InputType.PASSWORD ? 'pr-10' : ''
+              }`}
+              {...register}
+            />
 
-        {type === InputType.PASSWORD && (
-          <button
-            type="button"
-            className="focus:outline-none absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-400 hover:text-gray-600"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-          </button>
+            {type === InputType.PASSWORD && (
+              <button
+                type="button"
+                className="focus:outline-none absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-400 hover:text-gray-600"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+              </button>
+            )}
+          </>
         )}
       </div>
 

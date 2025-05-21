@@ -1,14 +1,18 @@
 import toast from 'react-hot-toast'
-import { useDeletePostMutation, useGetPostQuery } from '../../../services/api/post/postEndpoints'
+import { useDeletePostMutation, useGetPostsQuery } from '../../../services/api/post/postEndpoints'
 import type { IPostFilter } from '../../../shared/constants/types/post'
 import { FORM_TEXTS } from '../../../shared/constants/text/FormText'
+import { useNavigate } from 'react-router-dom'
+import { PATHS } from '../../../shared/constants/route/routes'
+import { Button } from '../../../components/ui/Button'
 
 interface IProps {
   filter: IPostFilter
 }
 
 export const Main = ({ filter }: IProps) => {
-  const { data: posts } = useGetPostQuery(filter)
+  const navigate = useNavigate()
+  const { data: posts } = useGetPostsQuery(filter)
   const [deletePost] = useDeletePostMutation()
   const handlePostDelete = async (postId: number) => {
     try {
@@ -31,15 +35,18 @@ export const Main = ({ filter }: IProps) => {
             <p className="line-clamp-4 mb-3 flex-grow overflow-hidden text-sm text-gray-600">{post.text}</p>
             <p className="mb-3 truncate text-base text-gray-800">Author: {post?.user?.name}</p>
             <div className="mt-auto flex justify-between">
-              <button className="rounded border border-gray-300 px-4 py-2 text-sm transition-colors duration-200 hover:bg-purple-100 hover:text-purple-800">
+              <Button
+                className="rounded border border-gray-300 px-4 py-2 text-sm transition-colors duration-200 hover:bg-purple-100 hover:text-purple-800"
+                onClick={() => navigate(`${PATHS.POSTID}${post.id}`)}
+              >
                 Посмотреть пост
-              </button>
-              <button
+              </Button>
+              <Button
                 className="rounded bg-red-500 px-4 py-2 text-sm text-white transition-colors duration-200 hover:bg-red-600"
                 onClick={() => handlePostDelete(post.id)}
               >
                 Удалить
-              </button>
+              </Button>
             </div>
           </div>
         )
