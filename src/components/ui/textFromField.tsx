@@ -7,13 +7,13 @@ interface TextFormFieldProps {
   label: string
   placeholder?: string
   register: UseFormRegisterReturn
-  type?: InputType.TEXT | InputType.EMAIL | InputType.PASSWORD | InputType.NUMBER | InputType.TEXTAREA
+  type?: InputType
   error?: string
   rows?: number
 }
 
 export const TextFormField = ({ label, placeholder = '', register, type = InputType.TEXT, error, rows = 3 }: TextFormFieldProps) => {
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const inputType = type === InputType.PASSWORD ? (showPassword ? InputType.TEXT : InputType.PASSWORD) : type
 

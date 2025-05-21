@@ -27,7 +27,7 @@ export const Post = () => {
     }
   }
 
-  const { data: post } = useGetPostQuery(id ?? '')
+  const { data: post } = useGetPostQuery(id!, { skip: !id })
   return (
     <div className="mx-auto">
       <div className="box-border flex w-full items-center justify-between border-b border-gray-300 px-3 py-6">
