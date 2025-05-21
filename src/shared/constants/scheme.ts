@@ -20,3 +20,9 @@ export const createPostFormSchema = z.object({
 })
 
 export type PostFormValues = z.infer<typeof createPostFormSchema>
+
+export const createCommentFormSchema = z.object({
+  comment: z.string().min(1, FORM_TEXTS.COMMENT_ERROR),
+})
+
+export type CommentFormValue = z.infer<typeof createCommentFormSchema>

@@ -4,6 +4,7 @@ import Home from './pages/Home/Home'
 import Login from './pages/login/LoginPage'
 import { PATHS } from './shared/constants/route/routes'
 import { Toaster } from 'react-hot-toast'
+import { Post } from './pages/Post/Post'
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
         <Route
           path={PATHS.HOME}
           element={<Home />}
+        />
+        <Route
+          path={PATHS.POST}
+          element={<Post />}
         />
       </Routes>
     </Router>

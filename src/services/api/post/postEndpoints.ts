@@ -5,7 +5,7 @@ import { api } from '../api'
 
 export const postEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
-    getPost: builder.query<Post[], IPostFilter>({
+    getPosts: builder.query<Post[], IPostFilter>({
       query: (filters: IPostFilter) => ({
         url: URL_ADRESS.POSTS_URL,
         method: 'GET',
@@ -25,7 +25,7 @@ export const postEndpoints = api.injectEndpoints({
       invalidatesTags: [{ type: ApiTags.POST as const, id: ApiTagIds.LIST }],
     }),
     updatePost: builder.mutation<Post, IPostUpdate>({
-      query: (id, ...patch) => ({
+      query: ({ id, ...patch }) => ({
         url: `${URL_ADRESS.POSTS_URL}/${id}`,
         method: 'PATCH',
         body: patch,
@@ -42,7 +42,11 @@ export const postEndpoints = api.injectEndpoints({
       }),
       invalidatesTags: (_result: unknown, _error: unknown, id: number) => [{ type: ApiTags.POST as const, id }],
     }),
+    getPost: builder.query<Post, string>({
+      query: (id: string) => `${URL_ADRESS.POSTS_URL}/${id}`,
+      providesTags: (_result, _error, id) => [{ type: ApiTags.POST, id }],
+    }),
   }),
 })
 
-export const { useGetPostQuery, useCreatePostMutation, useUpdatePostMutation, useDeletePostMutation } = postEndpoints
+export const { useGetPostsQuery, useCreatePostMutation, useUpdatePostMutation, useDeletePostMutation, useGetPostQuery } = postEndpoints

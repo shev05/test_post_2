@@ -33,11 +33,12 @@ export const CreatePostForm = ({ closeModal, initialData, postId }: IProps) => {
   async function onSubmit(values: PostFormValues) {
     try {
       const post = createPostDto(values)
-      await (isEdit ? updatePost({ id: postId, ...post }) : createPost(post).unwrap())
-      toast.success(TOAST_TEXT.LOGIN)
+      console.log(postId, initialData, post)
+      await (isEdit ? updatePost({ id: postId, ...post }) : createPost(post)).unwrap()
+      toast.success(TOAST_TEXT.POST)
       closeModal()
     } catch (error) {
-      toast.error(TOAST_TEXT.LOGIN_ERROR)
+      toast.error(TOAST_TEXT.POST_ERROR)
       console.error(error)
     }
   }
@@ -57,10 +58,11 @@ export const CreatePostForm = ({ closeModal, initialData, postId }: IProps) => {
         />
 
         <TextFormField
-          label="Текст"
-          placeholder="Что вы хотите рассказать?"
+          label="Комментарий"
+          placeholder="Напишите ваш комментарий..."
           register={register('text')}
-          type={InputType.TEXT}
+          type={InputType.TEXTAREA}
+          rows={4}
           error={errors.text?.message}
         />
       </div>

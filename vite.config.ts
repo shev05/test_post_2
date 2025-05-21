@@ -19,6 +19,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      '/comments': {
+        target: 'https://testtask.public.indev.by',
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
   plugins: [react()],
