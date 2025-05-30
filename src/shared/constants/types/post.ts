@@ -1,3 +1,4 @@
+import type { IComment } from './comment'
 import type { User } from './user'
 
 export interface Post {
@@ -7,6 +8,7 @@ export interface Post {
   text: string
   userId: number
   user: User
+  comments: IComment[]
 }
 
 export interface IPostCreate {

@@ -7,14 +7,12 @@ import { FORM_TEXTS } from '../../shared/constants/text/FormText'
 import { ModalWindow } from '../../components/ui/modal'
 import { CreatePostForm } from '../../components/form/createPostForm'
 import { useToggle } from '../../hooks/useToggle'
-import { useGetCommentsQuery } from '../../services/api/comments/commentEndpoints'
 import { CreateCommentForm } from '../../components/form/createCommentForm'
 
 export const Post = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [deletePost] = useDeletePostMutation()
-  const { data: comments } = useGetCommentsQuery()
   const { open, isOpen, close } = useToggle()
   const handlePostDelete = async () => {
     try {
@@ -60,7 +58,7 @@ export const Post = () => {
       </div>
       <h1 className="m-4 mt-10 text-2xl font-bold">Комментарии</h1>
       <div className="flex w-full flex-col">
-        {comments?.map((comment) => (
+        {post?.comments?.map((comment) => (
           <div
             className="mx-4 my-2 box-border flex flex-col rounded-lg border border-gray-300 p-2"
             key={comment.id}
