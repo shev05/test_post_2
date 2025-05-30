@@ -1,0 +1,4 @@
+/auth/*    https://testtask.public.indev.by/auth/:splat    200
+/users/*   https://testtask.public.indev.by/users/:splat   200
+/post/*    https://testtask.public.indev.by/post/:splat    200
+/comments/* https://testtask.public.indev.by/comments/:splat 200
