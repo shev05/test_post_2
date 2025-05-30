@@ -1,0 +1,19 @@
+[[redirects]]
+  from = "/auth/*"
+  to = "https://testtask.public.indev.by/auth/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/users/*"
+  to = "https://testtask.public.indev.by/users/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/post/*"
+  to = "https://testtask.public.indev.by/post/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/comments/*"
+  to = "https://testtask.public.indev.by/comments/:splat"
+  status = 200
