@@ -26,8 +26,8 @@ export const GlobalHeader = ({ onFilterChange }: IProps) => {
   const handleSortChange = (value: string) => {
     const newFilter = {
       ...currentFilter,
-      field: 'id',
-      direction: value,
+      sort_direction: 'id',
+      sort_by: value,
     }
     setCurrentFilter(newFilter)
     onFilterChange(newFilter)

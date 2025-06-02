@@ -4,22 +4,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/users': {
-        target: 'https://testtask.public.indev.by',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/auth': {
-        target: 'https://testtask.public.indev.by',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/post': {
-        target: 'https://testtask.public.indev.by',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/comments': {
+      '/api': {
         target: 'https://testtask.public.indev.by',
         changeOrigin: true,
         secure: false,

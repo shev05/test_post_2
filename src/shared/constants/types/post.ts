@@ -24,5 +24,5 @@ export interface IPostUpdate {
 
 export interface IPostFilter {
   userId?: number | string
-  direction?: string
+  sort_by?: string
 }

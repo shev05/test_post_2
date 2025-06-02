@@ -5,7 +5,7 @@ import type { Tokens } from '../../shared/constants/types/tokens'
 import { PATHS } from '../../shared/constants/route/routes'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: '/',
+  baseUrl: '/api',
   credentials: 'include',
 })
 
